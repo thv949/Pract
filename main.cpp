@@ -11,6 +11,13 @@ struct Menu
     string name;
     double price;
     int time;
+    Menu() {};
+    Menu(const int& time) :
+        time(time)
+    {
+        if (time < 0)
+            throw invalid_argument("Bad time");
+    }
 };
 
 vector<Menu> readMenuFromFile(string filename)
