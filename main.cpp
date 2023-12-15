@@ -2,59 +2,73 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include <clocale>
+#include "Menu.h"
+#include "time.h"
 
 using namespace std;
 
-struct Menu
-{
-    string name;
-    double price;
-    int time;
-    Menu() {};
-    Menu(const int& time) :
-        time(time)
-    {
-        if (time < 0)
-            throw invalid_argument("Bad time");
-    }
+struct Time {
+    int MM;
+    int HH;
+    Time(int m, int h) : MM(m), HH(h) {}
 };
 
-vector<Menu> readMenuFromFile(string filename)
-{
-    vector<Menu> menu_items;
-    ifstream ist(filename);
-    if (!ist.is_open())
-    {
-        cout << "Ошибка открытия файла!" << endl;
-        return menu_items;
+struct Menu {
+    std::string name;
+    std::string price;
+    Time menuTime;
+   
+    Menu(const std::string& n, const std::string& p, const Time& t)
+        : name(n), price(p), menuTime(t) {}
+};
+
+std::vector<Menu> readMenuFromFile(std::ifstream& in) {
+    std::vector<Menu> arr;
+    if (!in.is_open()) {
+        std::cout << "Ошибка открытия файла!" << std::endl;
+        return arr;
     }
-    while (false == ist.eof())
-    {
-        Menu menu_item;
-        ist >> menu_item.name >> menu_item.price >> menu_item.time;
-        menu_items.push_back(menu_item);
+    std::string input;
+    while (std::getline(in, input, ' ')) {
+        std::string name = input;
+        if (std::getline(in, input, ' ')) {
+            int MM, HH;
+            char colon = ':';
+            std::string price = input;
+
+            if (in >> MM >> colon >> HH) {
+                arr.emplace_back(name, price, Time(MM, HH));
+                in.ignore();
+            }
+        }
     }
-    return menu_items;
+    return arr;
 }
 
-void printMenu(vector<Menu> menu_items)
-{
-    for (uint64_t i = 0; i < menu_items.size(); ++i)
-    {
-        cout << menu_items[i].name << " " << menu_items[i].price << " " << menu_items[i].time << endl;
-    }
+void printMenu(const std::vector<Menu>& arr) {
+
+    for (const Menu& dish : arr) {
+        std::cout << "Название блюда: " << dish.name << std::endl;
+        std::cout << "Цена: " << dish.price << std::endl;
+        std::cout << "Время приготовления: " << dish.menuTime.MM << ":" << dish.menuTime.HH << std::endl;
 }
 
 int main()
 {
     setlocale(LC_ALL, "russian");
-    ifstream ist("in.txt");
-    vector<Menu> menu_items = readMenuFromFile("in.txt");
-    printMenu(menu_items);
+    std::ifstream in("in.txt");
+    std::vector<Menu> arr =
+    printMenu(arr);
+    in.close();
+};
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    return 0;
+//должно быть так в конце
+
+int main() {
+    setlocale(LC_ALL, "russian");
+    std::ifstream in("in.txt");
+    std::vector<Menu> arr =
+        printMenu(arr);
+    in.close();
 }
-
-
-
