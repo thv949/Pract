@@ -4,7 +4,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include "Time.h" // Предположим, что Time определен в Time.h
+#include "Time.h" 
 
 struct Menu {
     std::string name;

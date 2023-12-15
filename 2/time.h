@@ -1,6 +1,5 @@
 #pragma once
 
-
 struct Time {
 	int mm;
 	int hh;

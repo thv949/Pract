@@ -5,9 +5,8 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include "Menu.h" // Предположим, что Menu и Time определены в Menu.h
+#include "Menu.h" 
 
-// Функция для чтения меню из файла
 std::vector<Menu> readMenuFromFile(std::ifstream& in) {
     std::vector<Menu> arr;
     if (!in.is_open()) {
@@ -35,7 +34,6 @@ std::vector<Menu> readMenuFromFile(std::ifstream& in) {
     return arr;
 }
 
-// Функция для печати меню
 void PrintMenu(const std::vector<Menu>& arr) {
     for (const auto& dish : arr) {
         Time menu_time = dish.GetMenuTime();
