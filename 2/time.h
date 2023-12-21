@@ -1,15 +1,21 @@
 #pragma once
+#include <iostream> 
 
 struct Time {
-	int mm;
-	int hh;
+    int mm;
+    int hh;
 
-	void SetMinutes(int minutes);
-	void SetHours(int hours);
+    void SetMinutes(int minutes);
+    void SetHours(int hours);
 
-	int GetMinutes() const;
-	int GetHours() const;
+    int GetMinutes() const;
+    int GetHours() const;
 
-	Time(const int minutes, const int hours);
-	Time() : mm(0), hh(0) {}
+    void SetTime(int hours, int minutes); 
+    void ReadTime(std::istream& in); 
+    void WriteTime() const;
+
+    Time(const int minutes, const int hours);
+    Time() : mm(0), hh(0) {}
 };
+

@@ -4,12 +4,14 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include "Time.h" 
+#include "time.h" 
 
 struct Menu {
     std::string name;
     std::string price;
     Time menu_time;
+
+    static Menu create(std::istream& in);
 
     std::string GetName() const;
     void SetName(const std::string& name);
@@ -20,7 +22,9 @@ struct Menu {
     Time GetMenuTime() const;
     void SetMenuTime(const Time& time);
 
+    void ReadMenu(std::istream& in);
+    void WriteMenu() const;
+
     Menu(const std::string& name, const std::string& price, const Time& time);
     Menu() : name(""), price(""), menu_time() {}
 };
-

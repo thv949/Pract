@@ -14,22 +14,9 @@ std::vector<Menu> readMenuFromFile(std::ifstream& in) {
         return arr;
     }
     std::string input;
-    while (std::getline(in, input, ' ')) {
-        Menu menu;
-        menu.SetName(input);
-        if (std::getline(in, input, ' ')) {
-            int HH, MM;
-            char colon = ':';
-            menu.SetPrice(input);
-            Time menu_time;
-            if (in >> HH >> colon >> MM) {
-                menu_time.SetHours(HH);
-                menu_time.SetMinutes(MM);
-                menu.SetMenuTime(menu_time);
-                arr.emplace_back(menu);
-                in.ignore();
-            }
-        }
+    while (!in.eof()) {
+        Menu menu = Menu::create(in);
+        arr.push_back(menu);
     }
     return arr;
 }
