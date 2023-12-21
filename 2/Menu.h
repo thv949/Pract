@@ -25,6 +25,12 @@ struct Menu {
     void ReadMenu(std::istream& in);
     void WriteMenu() const;
 
+   static bool ValidateName(const std::string& name);
+   static void InvalidName(const std::string& name);
+
+   static bool ValidatePrice(const double& price);
+   static void InvalidPrice(const double& price);
+
     Menu(const std::string& name, const std::string& price, const Time& time);
     Menu() : name(""), price(""), menu_time() {}
 };

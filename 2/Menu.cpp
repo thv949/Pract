@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <string>
 #include "Menu.h"
 #include "time.h"
@@ -71,10 +71,51 @@ void Menu::ReadMenu(std::istream& in) {
 }
 
 void Menu::WriteMenu() const {
-    std::cout << "�������� �����: " << this->GetName() << std::endl;
-    std::cout << "����: " << this->GetPrice() << std::endl; 
+    std::cout << "Название блюда: " << this->GetName() << std::endl;
+    std::cout << "Цена: " << this->GetPrice() << std::endl; 
     this->GetMenuTime().WriteTime();
 }
 
 Menu::Menu(const std::string& n, const std::string& p, const Time& t) : name(n), price(p), menu_time(t) {}
 
+bool Menu::ValidateName(const std::string& name) {
+    static const std::string alphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
+        "АБВГДЕЁЖЗИЙКЛМНОПРСТУФКЦЧШЩЪЫЬЭЮЯ"
+        "0123456789"
+        "_";
+    for (char ch : name) {
+        if (alphabet.find(ch) == std::string::npos) {
+            return false;
+        }
+    }
+    return true;
+}
+
+void Menu::InvalidName(const std::string& name)
+{
+    static const std::string alphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
+        "АБВГДЕЁЖЗИЙКЛМНОПРСТУФКЦЧШЩЪЫЬЭЮЯ"
+        "0123456789"
+        "_";
+
+    if (name.empty() || !ValidateName(name) || name.find_first_not_of(alphabet) != std::string::npos) {
+        throw std::runtime_error("Invalid name!");
+    }
+    ValidateName(name);
+}
+bool Menu::ValidatePrice(const double& price)
+{
+    if (price <= 0) {
+        return false;
+    }
+    return true;
+}
+
+void Menu::InvalidPrice(const double& price)
+{
+    if (price < 0)
+    {
+        throw std::runtime_error("Invalid price!");
+    }
+    ValidatePrice(price);
+}
