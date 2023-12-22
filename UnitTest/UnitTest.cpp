@@ -40,7 +40,7 @@ namespace UnitTest
 			{
 				"60:240",
 				"ab:cd",
-				"nigger"
+				"wrong"
 
 			};
 			for (int i = 0; i < Cases.size(); i++)
@@ -179,7 +179,7 @@ namespace UnitTest
 			Time menu_time;
 			menu_time.ReadTime(input);
 			std::ostringstream expected_output;
-			expected_output << "Âðåìÿ ïðèãîòîâëåíèÿ: " << menu_time.GetHours() << ":" << menu_time.GetMinutes() << std::endl;
+			expected_output << "Время приготовления: " << menu_time.GetHours() << ":" << menu_time.GetMinutes() << std::endl;
 		}
 	};
 }
