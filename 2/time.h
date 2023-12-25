@@ -13,7 +13,7 @@ struct Time {
 
     void SetTime(int hours, int minutes); 
     void ReadTime(std::istream& in); 
-    void WriteTime() const;
+    void WriteTime(std::ostream& out) const;
 
 
    static bool ValidateTime(const std::string& time);

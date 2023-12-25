@@ -52,6 +52,7 @@ void Time::InvalidTime(const std::string& time)
 
 Time::Time(const int minutes, const int hours) : mm(minutes), hh(hours) {}
 
-void Time::WriteTime() const {
-    std::cout << "Время: " << hh << ':' << mm << std::endl;
+void Time::WriteTime(std::ostream& out) const {
+    out << "Часов " << this->GetHours() << std::endl;
+    out << "Минут " << this->GetMinutes() << std::endl;
 }
