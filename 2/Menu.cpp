@@ -1,30 +1,31 @@
 ﻿#include <iostream>
 #include <string>
 #include <iomanip>
+#include <sstream> 
 #include "Menu.h"
 #include "time.h"
 
-
-Menu Menu::create(std::istream& in)
+void Menu::create(std::istream& in)
 {
-    Menu menu;
+    std::string input_name;
 
-    if (in >> std::quoted(menu.name)) {
-        if (in >> std::quoted(menu.price)) {
+    if (std::getline(in, input_name, ' '))
+    {
+        this->SetName(input_name);
+        std::string input_price;
+        if (in >> input_price, ' ')
+        {
 
-            int HH, MM;
-            char colon = ':';
-            if (in >> HH >> colon >> MM) {
-                Time menu_time;
-                menu_time.SetTime(HH, MM);
-                menu.SetMenuTime(menu_time);
-                in.ignore();
-            }
+            this->SetPrice(input_price);
+            Time menu_time;
+            menu_time.ReadTime(in);
+            this->SetMenuTime(menu_time);
+            in.ignore();
         }
     }
 
-    return menu;
 }
+
 
 std::string Menu::GetName() const {
     return name;
@@ -38,8 +39,8 @@ std::string Menu::GetPrice() const {
     return price;
 }
 
-void Menu::SetPrice(const std::string& price) {
-    this->price = price;
+void Menu::SetPrice(const std::string& Price) {
+    this->price = Price;
 }
 
 Time Menu::GetMenuTime() const
@@ -53,7 +54,7 @@ void Menu::SetMenuTime(const Time& time)
 
 void Menu::WriteMenu(std::ostream& out) const {
     out << "Название блюда: " << this->GetName() << std::endl;
-    out << "Цена: " << this->GetPrice() << std::endl; 
+    out << "Цена: " << this->GetPrice() << std::endl;
     Time local_time = this->GetMenuTime();
     local_time.WriteTime(out);
 }

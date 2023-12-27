@@ -18,15 +18,16 @@ int Time::GetHours() const {
     return hh;
 }
 
-void Time::SetTime(int hours, int minutes) {
-    hh = hours;
-    mm = minutes;
-}
-
 void Time::ReadTime(std::istream& in) {
-    char colon;
-    if (in >> hh >> colon >> mm) {
-        in.ignore();
+    char colon = ':';
+    int HH, MM;
+    if (in >> HH >> colon >> MM)
+    {
+        if (colon != ':' || hh < 0 || hh > 23 || mm < 0 || mm > 59) {
+            throw std::runtime_error("Неверный формат времени или значения, выходящие за пределы диапазона");
+        }
+        this->SetHours(HH);
+        this->SetMinutes(MM);
     }
 }
 

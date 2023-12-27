@@ -152,11 +152,12 @@ namespace UnitTest
 
 		TEST_METHOD(ValidTestMenu)
 		{
-			std::istringstream input(" \"Пельмени\" 10.5 02:20");
+			std::istringstream input("\"Пельмени\" 10.5 02:20");
 
-			Menu menu = Menu::create(input);
+			Menu menu;
+			menu.create(input);
 
-			Assert::AreEqual(std::string("Пельмени"), menu.GetName());
+			Assert::AreEqual(std::string("\"Пельмени\""), menu.GetName());
 			Assert::AreEqual(std::string("10.5"), menu.GetPrice());
 
 			Time time = menu.GetMenuTime();

@@ -8,8 +8,3 @@
 std::vector<Menu> readMenuFromFile(std::ifstream & in);
 
 void PrintMenu(const std::vector<Menu>& arr);
-
-
-
-
-

@@ -14,7 +14,8 @@ std::vector<Menu> readMenuFromFile(std::ifstream& in) {
         return arr;
     }
     while (!in.eof()) {
-        Menu menu = Menu::create(in);
+        Menu menu;
+        menu.create(in);
         arr.push_back(menu);
     }
     return arr;
